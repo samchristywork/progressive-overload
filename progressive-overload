@@ -42,6 +42,25 @@ function usage() {
   exit 1
 }
 
+function get_failure_rate() {
+  exercise="$1"
+
+  total=$(grep "$exercise" $log | wc -l)
+  failures=$(grep "$exercise" $log | awk -F"\t" '{
+    failure=$5
+    if (failure=="true") {
+      print $0
+    }
+  }' | wc -l)
+
+  if [ $total -eq 0 ]; then
+    echo "0"
+    return
+  fi
+
+  echo "$failures * 100 / $total" | bc
+}
+
 case $1 in
   add)
     ;;
