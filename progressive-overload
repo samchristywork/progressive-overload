@@ -92,6 +92,18 @@ function format_time() {
 
 case $1 in
   add)
+    date=$(date "+%Y-%m-%d %H:%M:%S")
+    exercise="$2"
+    reps="$3"
+    intensity="$4"
+    failure="$5"
+
+    if [ -z "$exercise" ] || [ -z "$reps" ] || [ -z "$intensity" ] || [ -z "$failure" ]; then
+      echo "Usage: $0 add <exercise> <reps> <intensity> <failure>"
+      exit 1
+    fi
+
+    echo -e "$date\t$exercise\t$reps\t$intensity\t$failure" >> $log
     ;;
   next)
     ;;
