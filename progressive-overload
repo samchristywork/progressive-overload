@@ -11,6 +11,21 @@ if [ ! -f "$log" ]; then
   touch "$log"
 fi
 
+function preprocess_forms() {
+  cat $forms | awk -F"\t" '
+  function strip(str) {
+    gsub(/^[[:space:]]+|[[:space:]]+$/, "", str)
+    return str
+  }
+  {
+    muscle_group=strip($1)
+    exercise=strip($2)
+    description=strip($3)
+
+    print muscle_group "\t" exercise "\t" description
+  }'
+}
+
 function usage() {
   echo "Usage: $0 <command>"
   echo "Commands:"
