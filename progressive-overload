@@ -1,0 +1,57 @@
+#!/bin/bash
+
+forms="$HOME/.exercise.forms"
+log="$HOME/.exercise.log"
+
+if [ ! -f "$forms" ]; then
+  touch "$forms"
+fi
+
+if [ ! -f "$log" ]; then
+  touch "$log"
+fi
+
+function usage() {
+  echo "Usage: $0 <command>"
+  echo "Commands:"
+  echo "  add <exercise> <reps> <intensity> <failure> - Add an exercise"
+  echo "  next - Perform a random exercise"
+  echo "  pick - Perform a picked exercise"
+  echo "  search - Search for an exercise"
+  echo "  exercises - List all exercises"
+  echo "  muscles - List all muscle groups"
+  echo "  preprocess - Preprocess the forms file"
+  echo "  summary - Show a summary of all exercises"
+  echo "  show - Show all activity"
+  echo "  help - Show this help message"
+  exit 1
+}
+
+case $1 in
+  add)
+    ;;
+  next)
+    ;;
+  pick)
+    ;;
+  search)
+    ;;
+  exercises)
+    ;;
+  muscles)
+    ;;
+  preprocess)
+    ;;
+  summary)
+    ;;
+  show)
+    ;;
+  help)
+    usage
+    ;;
+  *)
+    echo "Command not found"
+    usage
+    exit 1
+    ;;
+esac
