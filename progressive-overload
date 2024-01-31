@@ -153,12 +153,16 @@ case $1 in
     perform "$exercise"
     ;;
   search)
+    preprocess_forms | column -t -s $'\t' | fzf
     ;;
   exercises)
+    preprocess_forms | awk -F"\t" '{print $2}' | sort
     ;;
   muscles)
+    preprocess_forms | awk -F"\t" '{print $1}' | sort
     ;;
   preprocess)
+    preprocess_forms
     ;;
   summary)
     ;;
