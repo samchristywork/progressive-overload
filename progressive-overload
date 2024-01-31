@@ -192,6 +192,21 @@ case $1 in
     ) | column -t -s $'\t'
     ;;
   show)
+    (
+    echo -e "Date\tExercise\tReps\tIntensity\tFailure"
+    awk -F"\t" '
+      BEGIN {OFS="\t"}
+      {
+        date = $1
+        exercise = $2
+        reps = $3
+        intensity = $4
+        failure = $5
+
+        print date, exercise, reps, intensity, failure
+      }' $log
+    echo -e "Date\tExercise\tReps\tIntensity\tFailure"
+    ) | column -t -s $'\t'
     ;;
   help)
     usage
