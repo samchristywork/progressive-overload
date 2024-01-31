@@ -19,10 +19,11 @@ function preprocess_forms() {
   }
   {
     muscle_group=strip($1)
-    exercise=strip($2)
-    description=strip($3)
+    rank=strip($2)
+    exercise=strip($3)
+    description=strip($4)
 
-    print muscle_group "\t" exercise "\t" description
+    print muscle_group "\t" exercise "\t" description "\t" rank
   }'
 }
 
