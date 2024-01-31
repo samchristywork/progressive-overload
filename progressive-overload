@@ -91,6 +91,44 @@ function format_time() {
   }'
 }
 
+function perform() {
+  exercise="$1"
+  failure_rate=$(get_failure_rate "$exercise")
+
+  echo $exercise
+  echo
+  echo "Muscle group: $(preprocess_forms | grep "$exercise" | awk -F"\t" '{print $1}')"
+  echo
+  echo "Description: $(preprocess_forms | grep "$exercise" | awk -F"\t" '{print $3}')"
+  echo
+  echo "Failure rate: $failure_rate%"
+  echo
+
+  intensity=$(grep "$exercise" $log | tail -n 1 | awk -F"\t" '{print $4}')
+  if [ -z "$intensity" ]; then
+    read -p "Enter intensity: " intensity
+  else
+    echo "Intensity: $intensity"
+    echo
+
+    if [ $failure_rate -lt 5 ]; then
+      read -p "Failure rate is low. Enter new intensity: " intensity
+    fi
+  fi
+
+  read -p "Enter reps: " reps
+  read -p "Did you fail? [y/n] " failed
+  if [ "$failed" == "y" ] || [ "$failed" == "Y" ]; then
+    failure="true"
+  else
+    failure="false"
+  fi
+
+  "$0" add "$exercise" "$reps" "$intensity" "$failure"
+
+  "$0" show
+}
+
 case $1 in
   add)
     date=$(date "+%Y-%m-%d %H:%M:%S")
